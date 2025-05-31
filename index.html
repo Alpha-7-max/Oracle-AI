@@ -193,7 +193,7 @@
 
       const GEMINI_MODEL_NAME = 'gemini-2.0-flash'; 
       const API_KEY = "AIzaSyDSF270Y1VJf1fe4G8ZAuw7bOITbAlal74"; // DO NOT CHANGE
-      const CHAT_STORAGE_KEY = 'oracleAIChatMessages_v15_emptyStateFix'; // Updated key
+      // const CHAT_STORAGE_KEY = 'oracleAIChatMessages_v15_emptyStateFix'; // Removed as per requirement
       const MAX_FILE_SIZE_MB = 5;
       const MAX_TOTAL_FILES_SIZE_MB = 20;
 
@@ -320,20 +320,6 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         </div>
       );
       
-      // AiAvatarIcon and UserAvatarIcon are no longer used directly in ChatMessageItem,
-      // but keeping them defined in case they are used elsewhere or for future reference.
-      const AiAvatarIcon = (props) => (
-        <div className={`flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 text-brand-primary flex items-center justify-center shadow-sm p-0.5 ${props.className}`}>
-            <i className="fa-solid fa-atom text-xl"></i>
-        </div>
-      );
-
-      const UserAvatarIcon = (props) => (
-         <div className={`flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary text-text-on-primary flex items-center justify-center shadow-sm ${props.className}`}>
-            <i className="fa-solid fa-user text-base"></i>
-        </div>
-      );
-      
       const COPY_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>`;
       const CHECK_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
       
@@ -393,10 +379,10 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
 
         if (isUser) {
           bubbleRoleClasses = 'bg-gradient-to-br from-brand-primary to-brand-secondary text-text-on-primary rounded-2xl rounded-br-md';
-          bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]'; // User bubble width remains constrained
+          bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]'; 
           contentToShow = <p className="text-sm md:text-base whitespace-pre-wrap break-words">{message.text}</p>;
         } else if (message.role === 'model') { 
-            if(isError) { // AI Error Message
+            if(isError) { 
                 bubbleRoleClasses = 'bg-red-50 border border-red-300 text-red-700 rounded-2xl rounded-bl-md';
                 contentToShow = (
                     <div className="text-sm break-words"> 
@@ -407,21 +393,18 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                       {message.text.replace(/^Error:\s*/, '')} 
                     </div>
                 );
-            } else { // Regular AI Message
+            } else { 
                 bubbleRoleClasses = 'bg-surface-bubble-ai text-text-primary rounded-2xl rounded-bl-md border border-border-default';
                 contentToShow = (
                     <div ref={contentRef} className="text-base markdown-content break-words" dangerouslySetInnerHTML={{ __html: marked.parse(message.text || '') }} />
                 );
             }
-            bubbleWidthClasses = 'max-w-full w-full'; // AI bubble takes maximum available width
+            bubbleWidthClasses = 'max-w-full w-full'; 
         }
 
 
         return (
-          // Removed space-x classes as avatars are removed.
-          // Justify start/end based on user.
           <div className={`flex items-end ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up opacity-0`} style={{animationFillMode: 'forwards'}}>
-            {/* Avatar rendering logic removed for both user and AI */}
             <div className={`${bubbleBaseClasses} ${bubbleWidthClasses} ${bubbleRoleClasses}`} style={{animationFillMode: 'forwards'}}>
               {isUser && message.attachedFiles && message.attachedFiles.length > 0 && (
                  <div className={`grid gap-2.5 ${message.text ? 'mb-2.5' : ''} ${message.attachedFiles.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
@@ -639,8 +622,6 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 <div key={msg.id}> 
                   <ChatMessageItem message={msg} /> 
                   {msg.id === messages[messages.length - 1]?.id && canRegenerateLastAi && ( 
-                    // Removed padding (pl- or pr-) as avatars are gone.
-                    // Button is now aligned to the start of the AI message bubble.
                     <div className={`flex mt-2 justify-start`}> 
                       <button 
                         onClick={() => { setChatError(null); onRegenerate(msg.id);}} 
@@ -687,7 +668,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 onChange={(e) => setInputText(e.target.value)} 
                 onPaste={handlePaste} 
                 onKeyDown={handleTextareaKeyDown}
-                placeholder="Aap yahan likh sakte hain..." 
+                placeholder="Type your message..." 
                 rows={1} 
                 className="flex-grow px-4 py-3 text-sm md:text-base border border-border-medium rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:border-brand-primary resize-none placeholder-text-subtle auto-resize transition-shadow focus:shadow-md" 
                 disabled={isLoading && !isAiCurrentlyStreaming}
@@ -712,7 +693,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
       };
 
       const App = () => {
-        const [chatMessages, setChatMessages] = useState(() => { try { const saved = localStorage.getItem(CHAT_STORAGE_KEY); if(saved) { const p = JSON.parse(saved); return Array.isArray(p) ? p.map(m=>({...m, timestamp: m.timestamp ? new Date(m.timestamp) : new Date()})) : []; } } catch(e){ console.error("LS load error:", e); localStorage.removeItem(CHAT_STORAGE_KEY); } return []; });
+        const [chatMessages, setChatMessages] = useState([]); // Removed local storage loading
         const [isChatLoading, setIsChatLoading] = useState(false);
         const [chatError, setChatError] = useState(null); 
         const isStoppingGenerationRef = useRef(false);
@@ -730,9 +711,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             }
         }, [chatError]);
 
+        // Removed useEffect for saving chatMessages to local storage
 
-        useEffect(() => { try { localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatMessages)); } catch(e){ console.error("LS save error:", e);}}, [chatMessages]);
-        
         const getGeminiHistory = (currentMessagesInternalFormat) => {
           const geminiMessages = currentMessagesInternalFormat 
             .filter(msg => !(msg.role === 'system' || (msg.role === 'model' && msg.isLoading) || msg.isError))
@@ -770,7 +750,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           } else { 
             setChatError("API Key is not configured. Please set it up."); 
           } 
-        }, []); 
+        }, []); // chatMessages dependency removed here as it's empty on first load, behavior remains same
 
         const handleStopGeneration = useCallback(() => { 
           isStoppingGenerationRef.current = true; 
