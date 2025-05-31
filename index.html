@@ -265,6 +265,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         </div>
       );
       
+      // AiAvatarIcon and UserAvatarIcon are no longer used in ChatMessageItem,
+      // but kept here in case they are needed elsewhere in the future.
       const AiAvatarIcon = (props) => (
         <div className={`flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 text-brand-primary flex items-center justify-center shadow-sm p-0.5 ${props.className}`}>
             <i className="fa-solid fa-atom text-xl"></i>
@@ -333,18 +335,19 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         let bubbleBaseClasses = 'px-4 py-3 md:px-4 md:py-3 shadow-card animate-fade-in-up opacity-0';
         let bubbleRoleClasses = '';
         let bubbleWidthClasses = '';
-        let avatar = null;
+        // Avatars removed
+        // let avatar = null; 
         let contentToShow = null;
 
         if (isUser) {
           bubbleRoleClasses = 'bg-gradient-to-br from-brand-primary to-brand-secondary text-text-on-primary rounded-2xl rounded-br-md';
           bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]';
-          avatar = <UserAvatarIcon />;
+          // avatar = <UserAvatarIcon />; // Removed
           contentToShow = <p className="text-sm md:text-base whitespace-pre-wrap break-words">{message.text}</p>;
         } else if (message.role === 'model') { 
             if(isError) { // AI Error Message
                 bubbleRoleClasses = 'bg-red-50 border border-red-300 text-red-700 rounded-2xl rounded-bl-md';
-                avatar = <AiAvatarIcon className="text-red-500 opacity-70" />;
+                // avatar = <AiAvatarIcon className="text-red-500 opacity-70" />; // Removed
                 contentToShow = (
                     <div className="text-sm break-words"> 
                       <div className="flex items-center mb-1">
@@ -356,7 +359,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 );
             } else { // Regular AI Message
                 bubbleRoleClasses = 'bg-surface-bubble-ai text-text-primary rounded-2xl rounded-bl-md border border-border-default';
-                avatar = <AiAvatarIcon className={`${isModelLoading ? 'animate-pulse-gentle' : ''}`} />;
+                // avatar = <AiAvatarIcon className={`${isModelLoading ? 'animate-pulse-gentle' : ''}`} />; // Removed
                 contentToShow = (
                     <div ref={contentRef} className="text-base markdown-content break-words" dangerouslySetInnerHTML={{ __html: marked.parse(message.text || '') }} />
                 );
@@ -366,8 +369,9 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
 
 
         return (
-          <div className={`flex items-end space-x-2.5 md:space-x-3 ${isUser ? 'justify-end' : ''} animate-fade-in-up opacity-0`} style={{animationFillMode: 'forwards'}}>
-            {!isUser && avatar}
+          // Removed space-x classes as avatars are gone
+          <div className={`flex items-end ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up opacity-0`} style={{animationFillMode: 'forwards'}}>
+            {/* {!isUser && avatar} Removed AI avatar */}
             <div className={`${bubbleBaseClasses} ${bubbleWidthClasses} ${bubbleRoleClasses}`} style={{animationFillMode: 'forwards'}}>
               {isUser && message.attachedFiles && message.attachedFiles.length > 0 && (
                  <div className={`grid gap-2.5 ${message.text ? 'mb-2.5' : ''} ${message.attachedFiles.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
@@ -403,7 +407,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 </div>
               )}
             </div>
-            {isUser && avatar}
+            {/* {isUser && avatar} Removed User avatar */}
           </div>);
       };
 
@@ -588,7 +592,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 <div key={msg.id}> 
                   <ChatMessageItem message={msg} /> 
                   {msg.id === messages[messages.length - 1]?.id && canRegenerateLastAi && ( 
-                    <div className={`flex mt-2 ${msg.role === 'user' ? 'justify-end pr-12 md:pr-14' : 'justify-start pl-12 md:pl-14'}`}> 
+                    // Removed specific padding for regenerate button, relying on flex justify
+                    <div className={`flex mt-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}> 
                       <button 
                         onClick={() => { setChatError(null); onRegenerate(msg.id);}} 
                         className="p-1.5 rounded-full text-text-subtle hover:text-brand-primary hover:bg-interactive-hover transition-all duration-150 group" 
