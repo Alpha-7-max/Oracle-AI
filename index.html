@@ -18,10 +18,15 @@
               'surface-accent': 'rgb(var(--surface-accent) / <alpha-value>)',    
               'surface-bubble-ai': 'rgb(var(--surface-bubble-ai) / <alpha-value>)',
               'surface-chat-area': 'rgb(var(--surface-chat-area) / <alpha-value>)',
+              'surface-user-bubble': 'rgb(var(--surface-user-bubble) / <alpha-value>)', 
+              'border-user-bubble': 'rgb(var(--border-user-bubble) / <alpha-value>)',
+              'button-send-bg': 'rgb(var(--button-send-bg) / <alpha-value>)', 
+              'button-send-hover-bg': 'rgb(var(--button-send-hover-bg) / <alpha-value>)',
+
 
               'text-primary': 'rgb(var(--text-primary) / <alpha-value>)',         
               'text-secondary': 'rgb(var(--text-secondary) / <alpha-value>)',           
-              'text-on-primary': 'rgb(var(--text-on-primary) / <alpha-value>)',
+              'text-on-primary': 'rgb(var(--text-on-primary) / <alpha-value>)', /* For text on dark/colored buttons */
               'text-subtle': 'rgb(var(--text-subtle) / <alpha-value>)',
 
               'border-default': 'rgb(var(--border-default) / <alpha-value>)',
@@ -74,8 +79,8 @@
                 '100%': { transform: 'scale(1)' },
               },
               glowSoft: {
-                '0%': { filter: 'drop-shadow(0 0 4px rgba(var(--brand-primary), 0.25)) drop-shadow(0 0 8px rgba(var(--brand-primary), 0.15))' },
-                '100%': { filter: 'drop-shadow(0 0 8px rgba(var(--brand-primary), 0.35)) drop-shadow(0 0 16px rgba(var(--brand-primary), 0.2))' },
+                '0%': { filter: 'drop-shadow(0 0 5px rgba(var(--brand-primary), 0.3)) drop-shadow(0 0 10px rgba(var(--brand-primary), 0.2))' },
+                '100%': { filter: 'drop-shadow(0 0 10px rgba(var(--brand-primary), 0.4)) drop-shadow(0 0 20px rgba(var(--brand-primary), 0.25))' },
               },
               rippleOut: { 
                 '0%': { transform: 'scale(0.7)', opacity: '0.4' },
@@ -84,11 +89,11 @@
               }
             },
             boxShadow: {
-                'interactive': '0 4px 12px 0 rgba(var(--brand-primary), 0.12)',
-                'interactive-hover': '0 6px 16px 0 rgba(var(--brand-primary), 0.18)',
+                'interactive': '0 4px 12px 0 rgba(var(--button-send-bg), 0.25)', /* Shadow based on button color */
+                'interactive-hover': '0 6px 16px 0 rgba(var(--button-send-bg), 0.35)', 
                 'card': '0 8px 25px rgba(var(--text-primary), 0.05), 0 4px 10px rgba(var(--text-primary),0.03)',
                 'header': '0 1px 3px rgba(var(--text-primary), 0.04), 0 1px 2px rgba(var(--text-primary), 0.02)',
-                'input-focus': '0 0 0 3px rgb(var(--brand-primary) / 0.2)',
+                'input-focus': '0 0 0 3px rgb(var(--brand-primary) / 0.25)', 
                 'chat-window': '0 20px 60px -10px rgba(var(--text-primary), 0.1), 0 10px 30px -10px rgba(var(--text-primary),0.07)',
             }
           },
@@ -98,35 +103,41 @@
     <style type="text/tailwindcss">
       @layer base {
         :root {
-          --brand-primary: 20 184 166;      /* Tailwind Teal-500 */
-          --brand-secondary: 13 148 136;    /* Tailwind Teal-600 */
+          --brand-primary: 56 189 248;     /* Tailwind Sky-400 */
+          --brand-secondary: 14 165 233;   /* Tailwind Sky-500 (Deeper blue) */
 
-          --surface-main: 247 247 248;     /* Custom very light gray, slightly warmer than slate-50 */
-          --surface-card: 255 255 255;     /* White */
-          --surface-chat-area: 249 250 251; /* Tailwind Gray-50, for messages background */
-          --surface-input: 255 255 255;     /* White */
-          --surface-accent: 240 253 250;   /* Tailwind Teal-50 */
-          --surface-bubble-ai: 255 255 255; /* White (AI messages on white, with border) */
-
-          --text-primary: 23 37 52;       /* Custom Dark Blue/Gray - Slate 800: 30 41 59 */
-          --text-secondary: 71 85 105;    /* Tailwind Slate-600 */
-          --text-subtle: 100 116 139;      /* Tailwind Slate-500 */
-          --text-on-primary: 255 255 255;   /* White */
-
-          --border-default: 226 232 240;   /* Tailwind Slate-200 */
-          --border-light: 241 245 249;     /* Tailwind Slate-100 */
-          --border-medium: 203 213 225;    /* Tailwind Slate-300 */
+          --surface-main: 247 247 248;     
+          --surface-card: 255 255 255;     
+          --surface-chat-area: 249 250 251; 
+          --surface-input: 255 255 255;     
+          --surface-accent: 240 249 255;   /* Tailwind Sky-50 */
+          --surface-bubble-ai: 255 255 255; 
+          --surface-user-bubble: 241 245 249; /* Tailwind Slate-100 for user bubble bg */
+          --border-user-bubble: 226 232 240;  /* Tailwind Slate-200 for user bubble border */
           
-          --interactive-hover: 204 251 241; /* Tailwind Teal-100 */
+          --button-send-bg: 100 116 139; /* Tailwind Slate-500 (dim blue-gray) */
+          --button-send-hover-bg: 71 85 105; /* Tailwind Slate-600 (slightly darker for hover) */
 
-          --status-info: 59 130 246;      /* Tailwind Blue-500 */
-          --status-success: 22 163 74;    /* Tailwind Green-600 */
-          --status-warning: 245 158 11;   /* Tailwind Yellow-500 */
-          --status-error: 220 38 38;      /* Tailwind Red-600 */
+
+          --text-primary: 23 37 52;       
+          --text-secondary: 71 85 105;    
+          --text-subtle: 100 116 139;      
+          --text-on-primary: 255 255 255; 
+
+          --border-default: 226 232 240;   
+          --border-light: 241 245 249;     
+          --border-medium: 203 213 225;    
+          
+          --interactive-hover: 224 242 254; /* Tailwind Sky-100 */
+
+          --status-info: 59 130 246;      
+          --status-success: 22 163 74;    
+          --status-warning: 245 158 11;   
+          --status-error: 220 38 38;      
         }
         html, body, #root { @apply h-full overflow-hidden; }
         body { @apply font-sans bg-surface-main text-text-primary m-0; }
-        ::selection { @apply bg-brand-primary/20 text-brand-secondary; }
+        ::selection { @apply bg-brand-primary/20 text-sky-600; } 
       }
       @layer components {
         .markdown-content p { @apply mb-3 last:mb-0; }
@@ -139,7 +150,7 @@
         .markdown-content code { @apply bg-slate-100 text-slate-700 text-xs px-1.5 py-0.5 rounded-md font-mono shadow-sm border border-slate-200; }
         .markdown-content pre { @apply bg-slate-800 text-slate-100 p-4 rounded-lg shadow-md overflow-x-auto text-sm my-4 font-mono relative; }
         .markdown-content pre code { @apply bg-transparent text-slate-100 p-0 shadow-none border-none; }
-        .markdown-content a { @apply text-brand-primary hover:text-brand-secondary underline decoration-brand-primary/50 hover:decoration-brand-secondary transition-colors; }
+        .markdown-content a { @apply text-brand-primary hover:text-sky-500 underline decoration-brand-primary/50 hover:decoration-sky-500/50 transition-colors; } 
         .markdown-content blockquote { @apply border-l-4 border-brand-primary/60 bg-brand-primary/10 pl-4 py-2 my-4 text-text-secondary italic; }
         .markdown-content h1, .markdown-content h2, .markdown-content h3,
         .markdown-content h4, .markdown-content h5, .markdown-content h6 { @apply font-poppins font-semibold my-4 text-text-primary; }
@@ -162,6 +173,21 @@
             min-height: 52px; 
             max-height: 180px; 
         }
+
+        /* Gradient only for header text */
+        .text-gradient-brand {
+          @apply bg-gradient-to-r from-sky-400 to-pink-400; 
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .text-gradient-brand-subtle {
+          @apply bg-gradient-to-r from-sky-300 to-pink-300; 
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,7 +219,6 @@
 
       const GEMINI_MODEL_NAME = 'gemini-2.0-flash'; 
       const API_KEY = "AIzaSyDSF270Y1VJf1fe4G8ZAuw7bOITbAlal74"; // DO NOT CHANGE
-      // const CHAT_STORAGE_KEY = 'oracleAIChatMessages_v15_emptyStateFix'; // Removed as per requirement
       const MAX_FILE_SIZE_MB = 5;
       const MAX_TOTAL_FILES_SIZE_MB = 20;
 
@@ -299,22 +324,22 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
 
       const HeaderBrandIcon = (props) => (
         <div className={`flex items-center justify-center text-brand-primary w-8 h-8 ${props.className}`}>
-            <i className="fa-solid fa-atom text-2xl"></i>
+            <i className="fa-solid fa-microchip text-2xl"></i>
         </div>
       );
 
       const EmptyStateLogo = (props) => (
         <div className={`relative flex items-center justify-center ${props.className} animate-glow-soft`}>
           <div 
-            className="absolute w-full h-full rounded-full bg-brand-primary/5 animate-rippleOut"
+            className="absolute w-full h-full rounded-full bg-brand-primary/10 animate-rippleOut"
             style={{ animationDelay: '0s' }} 
           ></div>
           <div 
-            className="absolute w-full h-full rounded-full bg-brand-primary/10 animate-rippleOut" 
+            className="absolute w-full h-full rounded-full bg-brand-primary/5 animate-rippleOut"
             style={{ animationDelay: '1.1s' }} 
           ></div>
           <i 
-            className="fa-solid fa-atom text-brand-primary relative z-10" 
+            className="fa-solid fa-microchip text-brand-primary relative z-10"
             style={{ fontSize: 'clamp(3rem, 15vw, 4.5rem)' }}
           ></i>
         </div>
@@ -339,7 +364,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               if (preEl.querySelector('.code-copy-button')) return;
               const button = document.createElement('button'); 
               button.innerHTML = COPY_ICON_SVG; 
-              button.classList.add('code-copy-button', 'absolute', 'top-2.5', 'right-2.5', 'p-1.5', 'bg-slate-700', 'hover:bg-slate-600', 'text-slate-300', 'hover:text-slate-100', 'rounded-md', 'transition-colors', 'duration-150', 'opacity-60', 'hover:opacity-100', 'focus:opacity-100', 'focus:ring-2', 'focus:ring-teal-400', 'focus:outline-none'); 
+              button.classList.add('code-copy-button', 'absolute', 'top-2.5', 'right-2.5', 'p-1.5', 'bg-slate-700', 'hover:bg-slate-600', 'text-slate-300', 'hover:text-slate-100', 'rounded-md', 'transition-colors', 'duration-150', 'opacity-60', 'hover:opacity-100', 'focus:opacity-100', 'focus:ring-2', 'focus:ring-sky-300', 'focus:outline-none');
               button.setAttribute('aria-label', 'Copy code'); 
               preEl.appendChild(button); 
               button.onclick = () => {  
@@ -378,7 +403,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         let contentToShow = null;
 
         if (isUser) {
-          bubbleRoleClasses = 'bg-gradient-to-br from-brand-primary to-brand-secondary text-text-on-primary rounded-2xl rounded-br-md';
+          bubbleRoleClasses = 'bg-surface-user-bubble text-text-primary border border-border-user-bubble rounded-2xl rounded-br-md';
           bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]'; 
           contentToShow = <p className="text-sm md:text-base whitespace-pre-wrap break-words">{message.text}</p>;
         } else if (message.role === 'model') { 
@@ -413,7 +438,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                       const imageSrc = `data:${file.apiData.mimeType};base64,${file.apiData.data}`;
                       return (
                         <div key={file.id || file.name}
-                             className="rounded-lg overflow-hidden border border-teal-200 bg-white shadow-sm group relative max-w-full w-full sm:w-auto sm:max-w-[180px]">
+                             className="rounded-lg overflow-hidden border border-slate-300 bg-white shadow-sm group relative max-w-full w-full sm:w-auto sm:max-w-[180px]">
                           <img src={imageSrc} alt={file.name || 'image preview'} className="block w-full max-h-40 object-contain" />
                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-1">
                              <p className="text-[10px] text-white text-center truncate font-medium">{file.name}</p>
@@ -422,9 +447,9 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                       );
                     } else { 
                       return (
-                        <div key={file.id || file.name} className="bg-teal-500 p-2.5 rounded-lg text-xs flex items-center space-x-2 max-w-full w-fit shadow">
-                          {file.type?.startsWith('image/') ? <FileImageIcon className="text-teal-100 text-base" /> : <FileTextIcon className="text-teal-100 text-base" />}
-                          <span className="truncate max-w-[120px] sm:max-w-[150px] text-white font-medium">{file.name}{file.type?.startsWith('image/') ? " (preview unavailable)" : ""}</span>
+                        <div key={file.id || file.name} className="bg-slate-200 p-2.5 rounded-lg text-xs flex items-center space-x-2 max-w-full w-fit shadow">
+                          {file.type?.startsWith('image/') ? <FileImageIcon className="text-slate-500 text-base" /> : <FileTextIcon className="text-slate-500 text-base" />}
+                          <span className="truncate max-w-[120px] sm:max-w-[150px] text-slate-700 font-medium">{file.name}{file.type?.startsWith('image/') ? " (preview unavailable)" : ""}</span>
                         </div>
                       );
                     }
@@ -596,8 +621,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               <div className="flex items-center space-x-3"> 
                 <HeaderBrandIcon /> 
                 <div>
-                  <h1 className="text-lg font-poppins font-semibold text-text-primary tracking-tight">Oracle AI</h1>
-                  <p className="text-xs text-text-secondary -mt-0.5">Modern Chat Experience</p>
+                  <h1 className="text-lg font-poppins font-semibold tracking-tight text-gradient-brand">Oracle AI</h1>
+                  <p className="text-xs -mt-0.5 text-gradient-brand-subtle">Modern Chat Experience</p>
                 </div>
               </div> 
               <button onClick={() => { setChatError(null); onClearChat(); }} 
@@ -673,16 +698,13 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 className="flex-grow px-4 py-3 text-sm md:text-base border border-border-medium rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:border-brand-primary resize-none placeholder-text-subtle auto-resize transition-shadow focus:shadow-md" 
                 disabled={isLoading && !isAiCurrentlyStreaming}
               /> 
-              <button type={isAiCurrentlyStreaming ? "button" : "submit"} 
-                      onClick={isAiCurrentlyStreaming ? onStopGeneration : undefined } 
+              <button type="submit" /* Always submit for send, stop is handled by onClick */
+                      onClick={isAiCurrentlyStreaming ? onStopGeneration : handleSubmit } 
                       disabled={isAiCurrentlyStreaming ? false : isSendButtonDisabled} 
                       className={`font-semibold w-11 h-11 rounded-xl shadow-interactive flex items-center justify-center transition-all duration-200 ease-in-out transform hover:shadow-interactive-hover active:animate-button-press flex-shrink-0
-                                  ${isAiCurrentlyStreaming 
-                                    ? 'bg-gradient-to-br from-red-400 to-rose-500 hover:from-red-500 hover:to-rose-600 text-white'
-                                    : (isSendButtonDisabled 
-                                        ? 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none' 
-                                        : 'bg-gradient-to-br from-brand-primary to-brand-secondary hover:from-brand-primary hover:to-teal-700 text-white hover:scale-105'
-                                      ) 
+                                  ${(isAiCurrentlyStreaming || !isSendButtonDisabled) 
+                                    ? 'bg-button-send-bg hover:bg-button-send-hover-bg text-text-on-primary hover:scale-105'
+                                    : 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none' 
                                   }
                                 `} 
                       aria-label={isAiCurrentlyStreaming ? "Stop generation" : "Send message"}> 
@@ -693,7 +715,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
       };
 
       const App = () => {
-        const [chatMessages, setChatMessages] = useState([]); // Removed local storage loading
+        const [chatMessages, setChatMessages] = useState([]); 
         const [isChatLoading, setIsChatLoading] = useState(false);
         const [chatError, setChatError] = useState(null); 
         const isStoppingGenerationRef = useRef(false);
@@ -711,7 +733,6 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             }
         }, [chatError]);
 
-        // Removed useEffect for saving chatMessages to local storage
 
         const getGeminiHistory = (currentMessagesInternalFormat) => {
           const geminiMessages = currentMessagesInternalFormat 
@@ -750,7 +771,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           } else { 
             setChatError("API Key is not configured. Please set it up."); 
           } 
-        }, []); // chatMessages dependency removed here as it's empty on first load, behavior remains same
+        }, []); 
 
         const handleStopGeneration = useCallback(() => { 
           isStoppingGenerationRef.current = true; 
