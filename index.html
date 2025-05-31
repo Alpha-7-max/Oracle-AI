@@ -320,8 +320,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         </div>
       );
       
-      // AiAvatarIcon and UserAvatarIcon are no longer used in ChatMessageItem,
-      // but kept here in case they are needed elsewhere in the future.
+      // AiAvatarIcon and UserAvatarIcon are no longer used directly in ChatMessageItem,
+      // but keeping them defined in case they are used elsewhere or for future reference.
       const AiAvatarIcon = (props) => (
         <div className={`flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 text-brand-primary flex items-center justify-center shadow-sm p-0.5 ${props.className}`}>
             <i className="fa-solid fa-atom text-xl"></i>
@@ -373,11 +373,10 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           } 
         }, [message.text, message.role, message.isLoading, isError]);
 
-        // Regular system messages (e.g., chat cleared, API key not set initial)
         if (message.role === 'system') { 
           const systemMessageStyle = isError 
-            ? "px-4 py-2 text-xs text-red-700 bg-red-100 border border-red-300 rounded-full shadow-sm italic" // Error styled system message
-            : "px-4 py-2 text-xs text-text-subtle bg-surface-accent border border-border-light rounded-full shadow-sm italic"; // Normal system message
+            ? "px-4 py-2 text-xs text-red-700 bg-red-100 border border-red-300 rounded-full shadow-sm italic" 
+            : "px-4 py-2 text-xs text-text-subtle bg-surface-accent border border-border-light rounded-full shadow-sm italic"; 
           return ( 
             <div className="flex justify-center my-4 animate-fade-in-up opacity-0" style={{animationFillMode: 'forwards'}}> 
               <div className={systemMessageStyle}> 
@@ -390,19 +389,15 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         let bubbleBaseClasses = 'px-4 py-3 md:px-4 md:py-3 shadow-card animate-fade-in-up opacity-0';
         let bubbleRoleClasses = '';
         let bubbleWidthClasses = '';
-        // Avatars removed
-        // let avatar = null; 
         let contentToShow = null;
 
         if (isUser) {
           bubbleRoleClasses = 'bg-gradient-to-br from-brand-primary to-brand-secondary text-text-on-primary rounded-2xl rounded-br-md';
-          bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]';
-          // avatar = <UserAvatarIcon />; // Removed
+          bubbleWidthClasses = 'max-w-[80%] sm:max-w-[75%]'; // User bubble width remains constrained
           contentToShow = <p className="text-sm md:text-base whitespace-pre-wrap break-words">{message.text}</p>;
         } else if (message.role === 'model') { 
             if(isError) { // AI Error Message
                 bubbleRoleClasses = 'bg-red-50 border border-red-300 text-red-700 rounded-2xl rounded-bl-md';
-                // avatar = <AiAvatarIcon className="text-red-500 opacity-70" />; // Removed
                 contentToShow = (
                     <div className="text-sm break-words"> 
                       <div className="flex items-center mb-1">
@@ -414,19 +409,19 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 );
             } else { // Regular AI Message
                 bubbleRoleClasses = 'bg-surface-bubble-ai text-text-primary rounded-2xl rounded-bl-md border border-border-default';
-                // avatar = <AiAvatarIcon className={`${isModelLoading ? 'animate-pulse-gentle' : ''}`} />; // Removed
                 contentToShow = (
                     <div ref={contentRef} className="text-base markdown-content break-words" dangerouslySetInnerHTML={{ __html: marked.parse(message.text || '') }} />
                 );
             }
-            bubbleWidthClasses = 'max-w-[94%] sm:max-w-[80%] md:max-w-[75%]';
+            bubbleWidthClasses = 'max-w-full w-full'; // AI bubble takes maximum available width
         }
 
 
         return (
-          // Removed space-x classes as avatars are gone
+          // Removed space-x classes as avatars are removed.
+          // Justify start/end based on user.
           <div className={`flex items-end ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up opacity-0`} style={{animationFillMode: 'forwards'}}>
-            {/* {!isUser && avatar} Removed AI avatar */}
+            {/* Avatar rendering logic removed for both user and AI */}
             <div className={`${bubbleBaseClasses} ${bubbleWidthClasses} ${bubbleRoleClasses}`} style={{animationFillMode: 'forwards'}}>
               {isUser && message.attachedFiles && message.attachedFiles.length > 0 && (
                  <div className={`grid gap-2.5 ${message.text ? 'mb-2.5' : ''} ${message.attachedFiles.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
@@ -462,7 +457,6 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 </div>
               )}
             </div>
-            {/* {isUser && avatar} Removed User avatar */}
           </div>);
       };
 
@@ -534,7 +528,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             let filesToProcess = [];
             let currentTotalSize = selectedFiles.reduce((acc, curr) => acc + (curr.file?.size || 0), 0);
             let didProcessAnyFile = false;
-            let localErrorMessage = null; // Store potential error here
+            let localErrorMessage = null; 
 
             for (const file of filesArray) {
                 const isImage = file.type.startsWith('image/');
@@ -549,10 +543,10 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 filesToProcess.push(file); currentTotalSize += file.size; didProcessAnyFile = true;
             }
             
-            if(localErrorMessage){ // If there was a validation error, use setChatError (which is passed from App)
+            if(localErrorMessage){ 
                 setChatError(localErrorMessage);
             } else {
-                setChatError(null); // Clear previous validation errors if all files are fine
+                setChatError(null); 
             }
 
 
@@ -609,9 +603,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           messages.length > 1 && messages[messages.length - 2].role === 'user' && 
           !(messages[messages.length - 2].attachedFiles?.some(f => f.type?.startsWith('image/')));
         
-        // Condition for showing the empty state
         const hasVisibleChatContent = messages.some(
-            msg => (msg.text || msg.attachedFiles?.length > 0) && !(msg.role === 'system' && !msg.isError) // Show empty state if only non-error system messages exist
+            msg => (msg.text || msg.attachedFiles?.length > 0) && !(msg.role === 'system' && !msg.isError) 
         );
 
         return (
@@ -642,13 +635,13 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 </div> 
               )} 
               {messages.map((msg) => ( 
-                // Render if it has text/files OR if it's a model loading placeholder (even without text yet) OR if it's an error message
                 (msg.text || msg.attachedFiles?.length > 0 || (msg.role === 'model' && msg.isLoading) || msg.isError) && 
                 <div key={msg.id}> 
                   <ChatMessageItem message={msg} /> 
                   {msg.id === messages[messages.length - 1]?.id && canRegenerateLastAi && ( 
-                    // Removed specific padding for regenerate button, relying on flex justify
-                    <div className={`flex mt-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}> 
+                    // Removed padding (pl- or pr-) as avatars are gone.
+                    // Button is now aligned to the start of the AI message bubble.
+                    <div className={`flex mt-2 justify-start`}> 
                       <button 
                         onClick={() => { setChatError(null); onRegenerate(msg.id);}} 
                         className="p-1.5 rounded-full text-text-subtle hover:text-brand-primary hover:bg-interactive-hover transition-all duration-150 group" 
@@ -721,23 +714,19 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
       const App = () => {
         const [chatMessages, setChatMessages] = useState(() => { try { const saved = localStorage.getItem(CHAT_STORAGE_KEY); if(saved) { const p = JSON.parse(saved); return Array.isArray(p) ? p.map(m=>({...m, timestamp: m.timestamp ? new Date(m.timestamp) : new Date()})) : []; } } catch(e){ console.error("LS load error:", e); localStorage.removeItem(CHAT_STORAGE_KEY); } return []; });
         const [isChatLoading, setIsChatLoading] = useState(false);
-        const [chatError, setChatError] = useState(null); // For non-message errors like file validation
+        const [chatError, setChatError] = useState(null); 
         const isStoppingGenerationRef = useRef(false);
 
-        // Effect to display chatError as a system message if it's set
         useEffect(() => {
             if (chatError) {
                 const errorId = Date.now() + '_sys_validation_err';
                 setChatMessages(prev => {
-                    // Avoid duplicate validation errors shown back-to-back
                     const lastMessage = prev[prev.length -1];
                     if(lastMessage && lastMessage.id.includes('_sys_validation_err') && lastMessage.text === chatError) {
                         return prev;
                     }
                     return [...prev, {id: errorId, role: 'system', text: chatError, isError: true, timestamp: new Date()}];
                 });
-                // Optionally clear chatError after a delay if you only want it shown once per occurrence
-                // setTimeout(() => setChatError(null), 5000); 
             }
         }, [chatError]);
 
@@ -776,11 +765,10 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
 
         useEffect(() => { 
           if (API_KEY && API_KEY !== "YOUR_GEMINI_API_KEY") { 
-            const initialGeminiHistory = getGeminiHistory(chatMessages.filter(m => !(m.role === 'system' && m.isError))); // Don't init with old system errors
+            const initialGeminiHistory = getGeminiHistory(chatMessages.filter(m => !(m.role === 'system' && m.isError))); 
             initializeChat(initialGeminiHistory); 
           } else { 
             setChatError("API Key is not configured. Please set it up."); 
-            // No need to add message here, useEffect for chatError will handle it.
           } 
         }, []); 
 
@@ -868,7 +856,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             const aiPlaceholder = { id: aiMessageId, role: 'model', text: '', timestamp: new Date(), isLoading: true, isError: false };
             
             setChatMessages(prev => { 
-              const filteredPrev = prev.filter(m => !(m.role === 'system' && m.isError)); // Remove old system errors before adding new messages
+              const filteredPrev = prev.filter(m => !(m.role === 'system' && m.isError)); 
               return [...filteredPrev, newUserMessage, aiPlaceholder];
             });
             
