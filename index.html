@@ -20,20 +20,20 @@
               'surface-chat-area': 'rgb(var(--surface-chat-area) / <alpha-value>)',
               'surface-user-bubble': 'rgb(var(--surface-user-bubble) / <alpha-value>)', 
               'border-user-bubble': 'rgb(var(--border-user-bubble) / <alpha-value>)',
-              'button-send-bg': 'rgb(var(--button-send-bg) / <alpha-value>)', 
+              'button-send-bg': 'rgb(var(--button-send-bg) / <alpha-value>)',
               'button-send-hover-bg': 'rgb(var(--button-send-hover-bg) / <alpha-value>)',
 
 
               'text-primary': 'rgb(var(--text-primary) / <alpha-value>)',         
               'text-secondary': 'rgb(var(--text-secondary) / <alpha-value>)',           
-              'text-on-primary': 'rgb(var(--text-on-primary) / <alpha-value>)', /* For text on dark/colored buttons */
+              'text-on-primary': 'rgb(var(--text-on-primary) / <alpha-value>)',
               'text-subtle': 'rgb(var(--text-subtle) / <alpha-value>)',
 
               'border-default': 'rgb(var(--border-default) / <alpha-value>)',
               'border-light': 'rgb(var(--border-light) / <alpha-value>)',
               'border-medium': 'rgb(var(--border-medium) / <alpha-value>)',
               'interactive-hover': 'rgb(var(--interactive-hover) / <alpha-value>)',
-              'interactive-focus-ring': 'rgb(var(--brand-primary) / 0.3)',
+              'interactive-focus-ring': 'rgb(var(--interactive-focus-ring-color) / <alpha-value>)',
 
 
               'status-info': 'rgb(var(--status-info) / <alpha-value>)',
@@ -51,8 +51,12 @@
               'pulse-gentle': 'pulseGentle 2.8s infinite ease-in-out', 
               'typing-indicator': 'typingIndicator 1.2s infinite ease-in-out',
               'button-press': 'buttonPress 0.2s ease-out',
-              'glow-soft': 'glowSoft 2.5s infinite alternate ease-in-out',
-              'rippleOut': 'rippleOut 2.2s infinite ease-out', 
+              'rippleOut': 'rippleOut 2.5s infinite ease-out', 
+              'speak-bob': 'speakBob 0.7s ease-in-out',
+              'think-glance': 'thinkGlance 2s infinite ease-in-out',
+              'blink': 'blink 4s infinite ease-in-out',
+              'happy-bounce': 'happyBounce 0.5s ease-out',
+              'empty-state-glow': 'emptyStateGlow 3.5s infinite alternate ease-in-out',
             },
             keyframes: {
               fadeInUp: {
@@ -65,7 +69,7 @@
               },
               pulseGentle: { 
                   '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
-                  '50%': { transform: 'scale(1.02)', opacity: '1' },
+                  '50%': { transform: 'scale(1.015)', opacity: '1' },
               },
               typingIndicator: {
                 '0%': { transform: 'translateY(0px)', opacity: '0.5' },
@@ -78,23 +82,40 @@
                 '50%': { transform: 'scale(0.96)'},
                 '100%': { transform: 'scale(1)' },
               },
-              glowSoft: {
-                '0%': { filter: 'drop-shadow(0 0 5px rgba(var(--brand-primary), 0.3)) drop-shadow(0 0 10px rgba(var(--brand-primary), 0.2))' },
-                '100%': { filter: 'drop-shadow(0 0 10px rgba(var(--brand-primary), 0.4)) drop-shadow(0 0 20px rgba(var(--brand-primary), 0.25))' },
+              emptyStateGlow: { 
+                '0%': { filter: 'drop-shadow(0 0 3px rgba(var(--brand-primary), 0.2)) drop-shadow(0 0 6px rgba(var(--brand-primary), 0.15))' },
+                '100%': { filter: 'drop-shadow(0 0 6px rgba(var(--brand-primary), 0.25)) drop-shadow(0 0 12px rgba(var(--brand-primary), 0.18))' },
               },
               rippleOut: { 
-                '0%': { transform: 'scale(0.7)', opacity: '0.4' },
-                '70%': { opacity: '0.15' },
-                '100%': { transform: 'scale(2.2)', opacity: '0' },
+                '0%': { transform: 'scale(0.8)', opacity: '0.3' },
+                '70%': { opacity: '0.1' },
+                '100%': { transform: 'scale(2.0)', opacity: '0' },
+              },
+              speakBob: {
+                  '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                  '50%': { transform: 'translateY(-2px) scale(1.05)' },
+              },
+              thinkGlance: {
+                  '0%, 100%': { transform: 'translateX(0px)' },
+                  '25%': { transform: 'translateX(-1px)' },
+                  '75%': { transform: 'translateX(1px)' },
+              },
+              blink: {
+                  '0%, 90%, 100%': { transform: 'scaleY(1)' },
+                  '95%': { transform: 'scaleY(0.1)' },
+              },
+              happyBounce: {
+                  '0%, 100%': { transform: 'translateY(0) rotate(0deg) scale(1)' },
+                  '50%': { transform: 'translateY(-3px) rotate(3deg) scale(1.03)' },
               }
             },
             boxShadow: {
-                'interactive': '0 4px 12px 0 rgba(var(--button-send-bg), 0.25)', /* Shadow based on button color */
-                'interactive-hover': '0 6px 16px 0 rgba(var(--button-send-bg), 0.35)', 
-                'card': '0 8px 25px rgba(var(--text-primary), 0.05), 0 4px 10px rgba(var(--text-primary),0.03)',
-                'header': '0 1px 3px rgba(var(--text-primary), 0.04), 0 1px 2px rgba(var(--text-primary), 0.02)',
-                'input-focus': '0 0 0 3px rgb(var(--brand-primary) / 0.25)', 
-                'chat-window': '0 20px 60px -10px rgba(var(--text-primary), 0.1), 0 10px 30px -10px rgba(var(--text-primary),0.07)',
+                'interactive': '0 4px 10px 0 rgba(var(--button-send-bg), 0.15)', 
+                'interactive-hover': '0 5px 14px 0 rgba(var(--button-send-bg), 0.20)', 
+                'card': '0 6px 20px rgba(var(--text-primary), 0.04), 0 3px 8px rgba(var(--text-primary),0.02)',
+                'header': '0 1px 2px rgba(var(--text-primary), 0.03), 0 1px 1px rgba(var(--text-primary), 0.015)',
+                'input-focus': '0 0 0 1px rgb(var(--interactive-focus-ring-color) / 1)', 
+                'chat-window': '0 15px 50px -8px rgba(var(--text-primary), 0.08), 0 8px 25px -8px rgba(var(--text-primary),0.05)',
             }
           },
         },
@@ -103,32 +124,37 @@
     <style type="text/tailwindcss">
       @layer base {
         :root {
-          --brand-primary: 56 189 248;     /* Tailwind Sky-400 */
-          --brand-secondary: 14 165 233;   /* Tailwind Sky-500 (Deeper blue) */
+          /* Brand Colors set to Slate (Grayish Blue) */
+          --brand-primary: 100 116 139;     /* Tailwind Slate-500 */
+          --brand-secondary: 71 85 105;    /* Tailwind Slate-600 */
 
-          --surface-main: 247 247 248;     
+          /* Button and Focus Ring Colors - Slate */
+          --button-send-bg: 100 116 139; /* Tailwind Slate-500 */
+          --button-send-hover-bg: 71 85 105; /* Tailwind Slate-600 */
+          --interactive-focus-ring-color: 100 116 139; /* Tailwind Slate-500 for focus */
+
+
+          --surface-main: 248 250 252;     
           --surface-card: 255 255 255;     
           --surface-chat-area: 249 250 251; 
           --surface-input: 255 255 255;     
-          --surface-accent: 240 249 255;   /* Tailwind Sky-50 */
+          --surface-accent: 241 245 249;   /* Tailwind Slate-100 */
           --surface-bubble-ai: 255 255 255; 
-          --surface-user-bubble: 241 245 249; /* Tailwind Slate-100 for user bubble bg */
-          --border-user-bubble: 226 232 240;  /* Tailwind Slate-200 for user bubble border */
+          --surface-user-bubble: 241 245 249; /* Tailwind Slate-100 */
+          --border-user-bubble: 226 232 240;  /* Tailwind Slate-200 */
           
-          --button-send-bg: 100 116 139; /* Tailwind Slate-500 (dim blue-gray) */
-          --button-send-hover-bg: 71 85 105; /* Tailwind Slate-600 (slightly darker for hover) */
 
-
-          --text-primary: 23 37 52;       
-          --text-secondary: 71 85 105;    
-          --text-subtle: 100 116 139;      
+          --text-primary: 17 24 39;       
+          --text-secondary: 55 65 81;    
+          --text-subtle: 107 114 128;     
           --text-on-primary: 255 255 255; 
 
-          --border-default: 226 232 240;   
-          --border-light: 241 245 249;     
-          --border-medium: 203 213 225;    
+          --border-default: 229 231 235;   
+          --border-light: 243 244 246;     
+          --border-medium: 209 213 219;    
           
-          --interactive-hover: 224 242 254; /* Tailwind Sky-100 */
+          --interactive-hover: 243 244 246; /* Tailwind Gray-100 - General dim gray hover */
+
 
           --status-info: 59 130 246;      
           --status-success: 22 163 74;    
@@ -137,7 +163,7 @@
         }
         html, body, #root { @apply h-full overflow-hidden; }
         body { @apply font-sans bg-surface-main text-text-primary m-0; }
-        ::selection { @apply bg-brand-primary/20 text-sky-600; } 
+        ::selection { @apply bg-gray-300 text-gray-700; } 
       }
       @layer components {
         .markdown-content p { @apply mb-3 last:mb-0; }
@@ -147,10 +173,10 @@
         .markdown-content li { @apply mb-1.5; }
         .markdown-content strong, .markdown-content b { @apply font-semibold text-text-primary; }
         .markdown-content em, .markdown-content i { @apply italic text-text-secondary; }
-        .markdown-content code { @apply bg-slate-100 text-slate-700 text-xs px-1.5 py-0.5 rounded-md font-mono shadow-sm border border-slate-200; }
-        .markdown-content pre { @apply bg-slate-800 text-slate-100 p-4 rounded-lg shadow-md overflow-x-auto text-sm my-4 font-mono relative; }
-        .markdown-content pre code { @apply bg-transparent text-slate-100 p-0 shadow-none border-none; }
-        .markdown-content a { @apply text-brand-primary hover:text-sky-500 underline decoration-brand-primary/50 hover:decoration-sky-500/50 transition-colors; } 
+        .markdown-content code { @apply bg-gray-100 text-gray-700 text-xs px-1.5 py-0.5 rounded-md font-mono shadow-sm border border-gray-200; }
+        .markdown-content pre { @apply bg-gray-800 text-gray-100 p-4 rounded-lg shadow-md overflow-x-auto text-sm my-4 font-mono relative; }
+        .markdown-content pre code { @apply bg-transparent text-gray-100 p-0 shadow-none border-none; }
+        .markdown-content a { @apply text-brand-primary hover:text-brand-secondary underline decoration-brand-primary/50 hover:decoration-brand-secondary/50 transition-colors; } 
         .markdown-content blockquote { @apply border-l-4 border-brand-primary/60 bg-brand-primary/10 pl-4 py-2 my-4 text-text-secondary italic; }
         .markdown-content h1, .markdown-content h2, .markdown-content h3,
         .markdown-content h4, .markdown-content h5, .markdown-content h6 { @apply font-poppins font-semibold my-4 text-text-primary; }
@@ -161,20 +187,20 @@
         .markdown-content th, .markdown-content td { @apply border border-border-default p-2.5 text-left; }
         .markdown-content th { @apply bg-surface-accent font-semibold text-text-primary; }
         .markdown-content td { @apply text-text-secondary; }
-        .markdown-content tbody tr:nth-child(even) { @apply bg-slate-50/50; }
+        .markdown-content tbody tr:nth-child(even) { @apply bg-gray-50/50; }
         .markdown-content tbody tr:hover { @apply bg-interactive-hover/50; }
 
         .chat-messages-container::-webkit-scrollbar { @apply w-1.5; }
-        .chat-messages-container::-webkit-scrollbar-track { @apply bg-slate-100 rounded-full; }
-        .chat-messages-container::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors; }
-        .chat-messages-container { scrollbar-width: thin; scrollbar-color: theme('colors.slate.300') theme('colors.slate.100'); }
+        .chat-messages-container::-webkit-scrollbar-track { @apply bg-gray-100 rounded-full; }
+        .chat-messages-container::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors; }
+        .chat-messages-container { scrollbar-width: thin; scrollbar-color: theme('colors.gray.300') theme('colors.gray.100'); }
         
         textarea.auto-resize {
             min-height: 52px; 
             max-height: 180px; 
         }
 
-        /* Gradient only for header text */
+        /* Gradient for header text - Sky-Pink */
         .text-gradient-brand {
           @apply bg-gradient-to-r from-sky-400 to-pink-400; 
           -webkit-background-clip: text;
@@ -186,6 +212,23 @@
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
+        }
+
+        /* Styles for Eva-like Avatar */
+        .avatar-wrapper {
+            transition: transform 0.3s ease-in-out;
+        }
+        .avatar-speaking .avatar-svg-element {
+            animation: speakBob 0.7s ease-in-out;
+        }
+        .avatar-thinking .avatar-svg-element #eye-left-header-oracle,
+        .avatar-thinking .avatar-svg-element #eye-right-header-oracle {
+            animation: thinkGlance 2s infinite ease-in-out;
+        }
+        .avatar-svg-element #eye-left-header-oracle, 
+        .avatar-svg-element #eye-right-header-oracle {
+            animation: blink 4s infinite ease-in-out;
+            transform-origin: center center;
         }
 
       }
@@ -322,28 +365,62 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
         }
       };
 
-      const HeaderBrandIcon = (props) => (
-        <div className={`flex items-center justify-center text-brand-primary w-8 h-8 ${props.className}`}>
-            <i className="fa-solid fa-microchip text-2xl"></i>
-        </div>
-      );
+      const EvaAvatarHeaderIcon = ({ avatarState }) => {
+        const wrapperRef = useRef(null);
+        const mouthRef = useRef(null);
+        const svgRef = useRef(null);
 
-      const EmptyStateLogo = (props) => (
-        <div className={`relative flex items-center justify-center ${props.className} animate-glow-soft`}>
-          <div 
-            className="absolute w-full h-full rounded-full bg-brand-primary/10 animate-rippleOut"
-            style={{ animationDelay: '0s' }} 
-          ></div>
-          <div 
-            className="absolute w-full h-full rounded-full bg-brand-primary/5 animate-rippleOut"
-            style={{ animationDelay: '1.1s' }} 
-          ></div>
-          <i 
-            className="fa-solid fa-microchip text-brand-primary relative z-10"
-            style={{ fontSize: 'clamp(3rem, 15vw, 4.5rem)' }}
-          ></i>
-        </div>
-      );
+        useEffect(() => {
+          if (!wrapperRef.current || !mouthRef.current || !svgRef.current) return;
+
+          const wrapperElement = wrapperRef.current;
+          const mouthElement = mouthRef.current;
+          const svgElement = svgRef.current;
+
+          wrapperElement.classList.remove('avatar-speaking', 'avatar-thinking', 'avatar-happy-state');
+          svgElement.style.animation = ''; 
+
+          const mouthDefaultD = "M33 72 Q50 82 67 72"; 
+          const mouthSmileD = "M30 65 Q50 85 70 65";
+
+          switch (avatarState) {
+            case 'speaking':
+              wrapperElement.classList.add('avatar-speaking');
+              mouthElement.setAttribute('d', mouthDefaultD);
+              break;
+            case 'thinking':
+              wrapperElement.classList.add('avatar-thinking');
+              mouthElement.setAttribute('d', mouthDefaultD);
+              break;
+            case 'happy':
+              wrapperElement.classList.add('avatar-happy-state');
+              mouthElement.setAttribute('d', mouthSmileD);
+              svgElement.style.animation = 'happyBounce 0.5s ease-out';
+              break;
+            case 'idle':
+            default:
+              mouthElement.setAttribute('d', mouthDefaultD);
+              break;
+          }
+        }, [avatarState]);
+
+        return (
+          <div ref={wrapperRef} className="avatar-wrapper w-8 h-8 relative">
+            <svg ref={svgRef} className="avatar-svg-element w-full h-full relative z-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                  <radialGradient id="avatarGradientHeaderOracle" cx="0.3" cy="0.3" r="0.7">
+                      <stop offset="0%" stop-color="#eef2ff" /> 
+                      <stop offset="100%" stop-color="#c7d2fe" />
+                  </radialGradient>
+              </defs>
+              <circle className="face" cx="50" cy="50" r="45" fill="url(#avatarGradientHeaderOracle)"/>
+              <circle id="eye-left-header-oracle" cx="35" cy="42" r="5.5" fill="#374151"/>
+              <circle id="eye-right-header-oracle" cx="65" cy="42" r="5.5" fill="#374151"/>
+              <path ref={mouthRef} id="mouth-header-oracle" d="M33 72 Q50 82 67 72" stroke="#374151" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+        );
+      };
       
       const COPY_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>`;
       const CHECK_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
@@ -364,7 +441,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               if (preEl.querySelector('.code-copy-button')) return;
               const button = document.createElement('button'); 
               button.innerHTML = COPY_ICON_SVG; 
-              button.classList.add('code-copy-button', 'absolute', 'top-2.5', 'right-2.5', 'p-1.5', 'bg-slate-700', 'hover:bg-slate-600', 'text-slate-300', 'hover:text-slate-100', 'rounded-md', 'transition-colors', 'duration-150', 'opacity-60', 'hover:opacity-100', 'focus:opacity-100', 'focus:ring-2', 'focus:ring-sky-300', 'focus:outline-none');
+              button.classList.add('code-copy-button', 'absolute', 'top-2.5', 'right-2.5', 'p-1.5', 'bg-gray-700', 'hover:bg-gray-600', 'text-gray-300', 'hover:text-gray-100', 'rounded-md', 'transition-colors', 'duration-150', 'opacity-60', 'hover:opacity-100', 'focus:opacity-100', 'focus:ring-2', 'focus:ring-brand-primary', 'focus:outline-none');
               button.setAttribute('aria-label', 'Copy code'); 
               preEl.appendChild(button); 
               button.onclick = () => {  
@@ -438,7 +515,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                       const imageSrc = `data:${file.apiData.mimeType};base64,${file.apiData.data}`;
                       return (
                         <div key={file.id || file.name}
-                             className="rounded-lg overflow-hidden border border-slate-300 bg-white shadow-sm group relative max-w-full w-full sm:w-auto sm:max-w-[180px]">
+                             className="rounded-lg overflow-hidden border border-gray-300 bg-white shadow-sm group relative max-w-full w-full sm:w-auto sm:max-w-[180px]">
                           <img src={imageSrc} alt={file.name || 'image preview'} className="block w-full max-h-40 object-contain" />
                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-1">
                              <p className="text-[10px] text-white text-center truncate font-medium">{file.name}</p>
@@ -447,9 +524,9 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                       );
                     } else { 
                       return (
-                        <div key={file.id || file.name} className="bg-slate-200 p-2.5 rounded-lg text-xs flex items-center space-x-2 max-w-full w-fit shadow">
-                          {file.type?.startsWith('image/') ? <FileImageIcon className="text-slate-500 text-base" /> : <FileTextIcon className="text-slate-500 text-base" />}
-                          <span className="truncate max-w-[120px] sm:max-w-[150px] text-slate-700 font-medium">{file.name}{file.type?.startsWith('image/') ? " (preview unavailable)" : ""}</span>
+                        <div key={file.id || file.name} className="bg-gray-200 p-2.5 rounded-lg text-xs flex items-center space-x-2 max-w-full w-fit shadow">
+                          {file.type?.startsWith('image/') ? <FileImageIcon className="text-gray-500 text-base" /> : <FileTextIcon className="text-gray-500 text-base" />}
+                          <span className="truncate max-w-[120px] sm:max-w-[150px] text-gray-700 font-medium">{file.name}{file.type?.startsWith('image/') ? " (preview unavailable)" : ""}</span>
                         </div>
                       );
                     }
@@ -459,16 +536,16 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               {message.text && contentToShow}
               {isModelLoading && ( 
                 <div className="flex items-end space-x-1.5 mt-2.5">
-                  <span className="w-2 h-2 bg-brand-primary rounded-full animate-typing-indicator" style={{ animationDelay: '0s' }}></span>
-                  <span className="w-2 h-2 bg-brand-primary rounded-full animate-typing-indicator" style={{ animationDelay: '0.15s' }}></span>
-                  <span className="w-2 h-2 bg-brand-primary rounded-full animate-typing-indicator" style={{ animationDelay: '0.3s' }}></span>
+                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-typing-indicator" style={{ animationDelay: '0s' }}></span>
+                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-typing-indicator" style={{ animationDelay: '0.15s' }}></span>
+                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-typing-indicator" style={{ animationDelay: '0.3s' }}></span>
                 </div>
               )}
             </div>
           </div>);
       };
 
-      const ChatInterface = ({ messages, onSendMessage, isLoading, onStopGeneration, onRegenerate, onClearChat, setChatError }) => {
+      const ChatInterface = ({ messages, onSendMessage, isLoading, onStopGeneration, onRegenerate, onClearChat, setChatError, avatarHeaderState }) => {
         const [inputText, setInputText] = useState('');
         const [selectedFiles, setSelectedFiles] = useState([]);
         const [isMobileView, setIsMobileView] = useState(false);
@@ -619,14 +696,14 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           <div className="w-full h-full sm:max-w-2xl md:max-w-3xl lg:max-w-[780px] sm:mx-auto bg-surface-card rounded-none sm:rounded-xl shadow-chat-window flex flex-col overflow-hidden sm:my-6 sm:max-h-[calc(100vh-3rem)]">
             <header className="p-4 border-b border-border-light bg-surface-card flex items-center justify-between flex-shrink-0 shadow-header"> 
               <div className="flex items-center space-x-3"> 
-                <HeaderBrandIcon /> 
+                <EvaAvatarHeaderIcon avatarState={avatarHeaderState} />
                 <div>
                   <h1 className="text-lg font-poppins font-semibold tracking-tight text-gradient-brand">Oracle AI</h1>
                   <p className="text-xs -mt-0.5 text-gradient-brand-subtle">Modern Chat Experience</p>
                 </div>
               </div> 
               <button onClick={() => { setChatError(null); onClearChat(); }} 
-                      className="text-sm font-medium text-text-secondary hover:text-status-error px-3 py-1.5 rounded-lg hover:bg-red-500/10 transition-colors duration-150 disabled:opacity-50 flex items-center space-x-1.5 group" 
+                      className="text-sm font-medium text-text-secondary hover:text-text-primary px-3 py-1.5 rounded-lg hover:bg-interactive-hover transition-colors duration-150 disabled:opacity-50 flex items-center space-x-1.5 group" 
                       aria-label="Clear chat" 
                       disabled={isLoading || messages.filter(m=>m.text || m.attachedFiles?.length > 0).length === 0}> 
                 <i className="fas fa-broom fa-fw text-sm transition-transform group-hover:scale-110"></i>
@@ -636,9 +713,8 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             
             <div ref={chatContainerRef} className="flex-grow p-4 md:p-5 space-y-4 md:space-y-5 overflow-y-auto chat-messages-container relative bg-surface-chat-area"> 
               { !hasVisibleChatContent && !isLoading && ( 
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-8 text-center opacity-0 animate-fade-in-up" style={{animationDelay: '0.2s', animationFillMode: 'forwards'}}> 
-                  <EmptyStateLogo className="w-28 h-28 md:w-32 md:h-32 mb-6" /> 
-                  <p className="text-xl md:text-2xl font-poppins font-semibold text-text-secondary">Hello there!</p> 
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none p-8 opacity-0 animate-fade-in-up" style={{animationDelay: '0.2s', animationFillMode: 'forwards'}}> 
+                  <p className="text-xl md:text-2xl font-poppins font-semibold text-text-secondary mb-2">Hello there!</p> 
                   <p className="text-sm text-text-subtle mt-1.5">I am Oracle AI. You can ask me anything or share files to get started.</p> 
                 </div> 
               )} 
@@ -681,7 +757,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               <button 
                 type="button" 
                 onClick={() => fileInputRef.current?.click()} 
-                className="w-10 h-10 flex items-center justify-center rounded-full text-text-subtle hover:text-text-secondary hover:bg-interactive-hover/70 transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0" 
+                className="w-10 h-10 flex items-center justify-center rounded-full text-text-subtle hover:text-text-secondary hover:bg-interactive-hover transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0"
                 aria-label="Attach files" 
                 disabled={isLoading && !isAiCurrentlyStreaming}
               > 
@@ -695,16 +771,16 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 onKeyDown={handleTextareaKeyDown}
                 placeholder="Type your message..." 
                 rows={1} 
-                className="flex-grow px-4 py-3 text-sm md:text-base border border-border-medium rounded-xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-interactive-focus-ring focus:border-brand-primary resize-none placeholder-text-subtle auto-resize transition-shadow focus:shadow-md" 
+                className="flex-grow px-4 py-3 text-sm md:text-base border border-border-medium rounded-xl bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-interactive-focus-ring focus:border-transparent resize-none placeholder-text-subtle auto-resize transition-shadow focus:shadow-md"
                 disabled={isLoading && !isAiCurrentlyStreaming}
               /> 
-              <button type="submit" /* Always submit for send, stop is handled by onClick */
-                      onClick={isAiCurrentlyStreaming ? onStopGeneration : handleSubmit } 
+              <button type={isAiCurrentlyStreaming ? "button" : "submit"} 
+                      onClick={isAiCurrentlyStreaming ? onStopGeneration : undefined } 
                       disabled={isAiCurrentlyStreaming ? false : isSendButtonDisabled} 
                       className={`font-semibold w-11 h-11 rounded-xl shadow-interactive flex items-center justify-center transition-all duration-200 ease-in-out transform hover:shadow-interactive-hover active:animate-button-press flex-shrink-0
-                                  ${(isAiCurrentlyStreaming || !isSendButtonDisabled) 
-                                    ? 'bg-button-send-bg hover:bg-button-send-hover-bg text-text-on-primary hover:scale-105'
-                                    : 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none' 
+                                  ${ (isSendButtonDisabled && !isAiCurrentlyStreaming)
+                                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' 
+                                      : 'bg-button-send-bg hover:bg-button-send-hover-bg text-white hover:scale-105'
                                   }
                                 `} 
                       aria-label={isAiCurrentlyStreaming ? "Stop generation" : "Send message"}> 
@@ -713,11 +789,12 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             </form>
           </div>);
       };
-
+      
       const App = () => {
         const [chatMessages, setChatMessages] = useState([]); 
         const [isChatLoading, setIsChatLoading] = useState(false);
         const [chatError, setChatError] = useState(null); 
+        const [avatarHeaderState, setAvatarHeaderState] = useState('idle');
         const isStoppingGenerationRef = useRef(false);
 
         useEffect(() => {
@@ -730,6 +807,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                     }
                     return [...prev, {id: errorId, role: 'system', text: chatError, isError: true, timestamp: new Date()}];
                 });
+                 setAvatarHeaderState('idle');
             }
         }, [chatError]);
 
@@ -768,8 +846,10 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           if (API_KEY && API_KEY !== "YOUR_GEMINI_API_KEY") { 
             const initialGeminiHistory = getGeminiHistory(chatMessages.filter(m => !(m.role === 'system' && m.isError))); 
             initializeChat(initialGeminiHistory); 
+             setAvatarHeaderState('idle');
           } else { 
             setChatError("API Key is not configured. Please set it up."); 
+             setAvatarHeaderState('idle');
           } 
         }, []); 
 
@@ -777,6 +857,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
           isStoppingGenerationRef.current = true; 
           setChatMessages(prev => prev.map(m => m.isLoading && m.role === 'model' ? {...m, isLoading:false, text: (m.text || "") + "\n\n---\n*Generation stopped by user.*"} : m)); 
           setIsChatLoading(false); 
+          setAvatarHeaderState('idle');
         }, []);
 
         const handleClearChat = useCallback(() => { 
@@ -788,11 +869,13 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             setChatError(null); 
           } 
           setChatMessages(initMsg); 
+          setAvatarHeaderState('idle');
         }, []);
         
         const _streamAiResponse = async (promptPartsForCurrentTurn, targetAiMessageId, historyForGeminiInit) => { 
             isStoppingGenerationRef.current = false; 
             setIsChatLoading(true); 
+            setAvatarHeaderState('thinking');
             let displayedAiText = "";
             try {
                 initializeChat(historyForGeminiInit);
@@ -835,8 +918,15 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                     isLoading: false, 
                     isError: true     
                 } : m));
+                setAvatarHeaderState('idle');
             } finally { 
                 setIsChatLoading(false); 
+                if (!isStoppingGenerationRef.current) {
+                    setAvatarHeaderState('speaking');
+                    setTimeout(() => setAvatarHeaderState('idle'), 1500);
+                } else {
+                    setAvatarHeaderState('idle');
+                }
                 isStoppingGenerationRef.current = false; 
             }
         };
@@ -874,6 +964,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
             } else { 
                  setChatMessages(prev => prev.map(m => m.id === aiMessageId ? { ...m, role: 'model', text: "No content to send.", isLoading: false, isError: true } : m ).filter(msg => msg.id !== aiMessageId || msg.isError)); 
                 setIsChatLoading(false);
+                setAvatarHeaderState('idle');
             }
         }, [chatMessages]); 
 
@@ -916,6 +1007,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
                 await _streamAiResponse(promptPartsForCurrentTurn, newAiPlaceholderId, historyForGeminiInit);
             } else {
                  setChatMessages(prev => prev.map(m => m.id === newAiPlaceholderId ? {...m, isLoading: false, text: "No content found to regenerate.", isError: true} : m));
+                 setAvatarHeaderState('idle');
             }
         }, [chatMessages]);
 
@@ -929,6 +1021,7 @@ Jab user pooche ke Azeem kon hai, ya "who is he" (Azeem ke baray mein), to aapko
               onRegenerate={handleRegenerateResponse} 
               onClearChat={handleClearChat}
               setChatError={setChatError} 
+              avatarHeaderState={avatarHeaderState}
             />
           </div>
         );
